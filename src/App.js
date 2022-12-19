@@ -1,25 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { useState } from "react";
 
-function App() {
+const App = () => {
+  const endpoint = process.env.REACT_APP_ENDPOINT;
+
+  const [listApi, setListApi] = useState([]);
+
+  async function hitApi() {
+    const api = await fetch(endpoint);
+    const data = await api.json();
+    setListApi(data.data);
+  }
+
+  const showApi = () => {
+    console.log(listApi);
+  };
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>TES API</h1>
+      <p></p>
+      <button onClick={() => showApi()}>GET API NOW!!</button>
     </div>
   );
-}
+};
 
 export default App;
